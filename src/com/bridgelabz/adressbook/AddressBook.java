@@ -7,12 +7,12 @@ import java.util.Set;
 
  class AddressBook {
 
-    static class Addressable
-    {
+
+
         static final Scanner scanner = new Scanner(System.in);
         static Set<String> emptyContacts = new HashSet<>();
+        static Set<String> nonEmptyContacts = new HashSet<>();
 
-        // instance method
         void createNewContact() throws Exception
         {
             System.out.print("Enter name of the contact:");
@@ -71,32 +71,85 @@ import java.util.Set;
             }
 
         }
+
+           void editContactName()
+         {
+            System.out.print("enter name of the contact to edit:");
+            String contactName = scanner.nextLine();
+            if(emptyContacts.contains(contactName))
+            {
+                System.out.println("please fill the contact "+ contactName + " before editing it");
+
+            }
+            else if(!nonEmptyContacts.contains(contactName))
+            {
+                System.out.println("please create the contact "+ contactName +" before editing it");
+
+            }
+        }
+
+         void deleteContact() {
+
+             System.out.print("enter contact name to delete:");
+             String contactName = scanner.nextLine().trim();
+             File file = new File(contactName);
+             if(file.exists())
+             {
+                 if(file.delete())
+                 {
+                     if(emptyContacts.contains(contactName))
+                     {
+                         emptyContacts.remove(contactName);
+                     }
+                     else
+                     {
+                         nonEmptyContacts.remove(contactName);
+                     }
+                     System.out.println(contactName + " is deleted successfully");
+                 }
+                 else
+                 {
+                     System.out.println("file deletion failed");
+                 }
+
+             }
+             else
+             {
+                 System.out.println(contactName +  " doesn't exists ");
+             }
+         }
     }
 
-    public static class AddressBookLauncher {
+
+
+
+
+     class AddressBookLauncher {
 
         static final Scanner scanner = new Scanner(System.in);
 
         public static void main(String[] args) throws Exception {
-            Addressable addressBook = new Addressable();
+            AddressBook addressBook = new AddressBook();
             while (true) {
                 System.out.println("-----------------------------");
                 System.out.println("1.create a new contact");
                 System.out.println("2.fill contact details");
-                System.out.println("3.exit");
+                System.out.println("3.edit contact name");
+                System.out.println("4.delete contact");
+                System.out.println("5.exit");
                 System.out.print("enter option:");
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1 -> addressBook.createNewContact();
                     case 2 -> addressBook.fillContactDetails();
-                    case 3 -> {
+                    case 3 -> addressBook.editContactName();
+                    case 4 -> addressBook.deleteContact();
+                    case 5 -> {
                         System.out.println("exiting....");
                         System.exit(0);
                     }
                     default -> System.out.println("please enter the correct choice");
                 }
 
-            }
+            }}}
 
-        }
-    }}
