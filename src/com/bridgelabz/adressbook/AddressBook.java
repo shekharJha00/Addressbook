@@ -7,12 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 
  class AddressBook {
-
-
-
-
-
-
+     
          static final Scanner scanner = new Scanner(System.in);
          static Set<String> emptyContacts = new HashSet<>();
          static Set<String> nonEmptyContacts = new HashSet<>();
