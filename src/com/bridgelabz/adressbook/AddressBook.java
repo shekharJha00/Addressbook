@@ -15,8 +15,31 @@ import java.util.Set;
 
          void createNewContact() throws Exception
          {
+<<<<<<< HEAD
              System.out.print("Enter name of the contact:");
              String contactName = scanner.nextLine();
+=======
+            System.out.print("enter name of the contact to edit:");
+            String contactName = scanner.nextLine();
+            if(emptyContacts.contains(contactName))
+            {
+                System.out.println("please fill the contact "+ contactName + " before editing it");
+
+            }
+            else if(!nonEmptyContacts.contains(contactName))
+            {
+                System.out.println("please create the contact "+ contactName +" before editing it");
+
+            }
+        }
+<<<<<<< HEAD
+=======
+
+         void deleteContact() {
+
+             System.out.print("enter contact name to delete:");
+             String contactName = scanner.nextLine().trim();
+>>>>>>> main
              File file = new File(contactName);
              if (file.exists())
              {
@@ -36,6 +59,7 @@ import java.util.Set;
              }
 
          }
+<<<<<<< HEAD
          void writeFile(String fileName,String content)throws Exception
          {
              FileWriter fw = new FileWriter(fileName);
@@ -73,6 +97,10 @@ import java.util.Set;
                  System.out.println(contactName + " is not empty contact or it is not created");
                  System.out.println("use other option 1 to create new contact or option 5 to edit already created one");
              }
+=======
+>>>>>>> uc4
+    }
+>>>>>>> main
 
          }
 
@@ -179,8 +207,42 @@ import java.util.Set;
          }
      }
 
+<<<<<<< HEAD
      class AddressBookLauncher
      {
+=======
+        public static void main(String[] args) throws Exception {
+            AddressBook addressBook = new AddressBook();
+            while (true) {
+                System.out.println("-----------------------------");
+                System.out.println("1.create a new contact");
+                System.out.println("2.fill contact details");
+<<<<<<< HEAD
+                System.out.println(".edit contact name");
+                System.out.println("4.exit");
+=======
+                System.out.println("3.edit contact name");
+                System.out.println("4.delete contact");
+                System.out.println("5.exit");
+>>>>>>> uc4
+                System.out.print("enter option:");
+                int option = scanner.nextInt();
+                switch (option) {
+                    case 1 -> addressBook.createNewContact();
+                    case 2 -> addressBook.fillContactDetails();
+                    case 3 -> addressBook.editContactName();
+<<<<<<< HEAD
+                    case 4 -> {
+=======
+                    case 4 -> addressBook.deleteContact();
+                    case 5 -> {
+>>>>>>> uc4
+                        System.out.println("exiting....");
+                        System.exit(0);
+                    }
+                    default -> System.out.println("please enter the correct choice");
+                }
+>>>>>>> main
 
          static final Scanner scanner = new Scanner(System.in);
 
