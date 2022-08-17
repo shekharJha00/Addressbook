@@ -1,280 +1,254 @@
 package com.bridgelabz.adressbook;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
 
- class AddressBook {
-     
-         static final Scanner scanner = new Scanner(System.in);
-         static Set<String> emptyContacts = new HashSet<>();
-         static Set<String> nonEmptyContacts = new HashSet<>();
+import java.util.*;
 
-
-         void createNewContact() throws Exception
-         {
-<<<<<<< HEAD
-             System.out.print("Enter name of the contact:");
-             String contactName = scanner.nextLine();
-=======
-            System.out.print("enter name of the contact to edit:");
-            String contactName = scanner.nextLine();
-            if(emptyContacts.contains(contactName))
-            {
-                System.out.println("please fill the contact "+ contactName + " before editing it");
-
-            }
-            else if(!nonEmptyContacts.contains(contactName))
-            {
-                System.out.println("please create the contact "+ contactName +" before editing it");
-
-            }
-        }
-<<<<<<< HEAD
-=======
-
-         void deleteContact() {
-
-             System.out.print("enter contact name to delete:");
-             String contactName = scanner.nextLine().trim();
->>>>>>> main
-             File file = new File(contactName);
-             if (file.exists())
-             {
-                 System.out.println("contact " + file.getName() + " already exists!");
-             }
-             else
-             {
-                 if (file.createNewFile())
-                 {
-                     System.out.println("new contact " + file.getName() + " is created successfully");
-                     emptyContacts.add(file.getName());
-                 }
-                 else
-                 {
-                     System.out.println("file creation failed!");
-                 }
-             }
-
-         }
-<<<<<<< HEAD
-         void writeFile(String fileName,String content)throws Exception
-         {
-             FileWriter fw = new FileWriter(fileName);
-             fw.write(content);
-             fw.close();
-             nonEmptyContacts.add(fileName);
-             System.out.println("the given contents are successfully added in " + fileName);
-         }
-         void fillContactDetails()throws Exception
-         {
-             System.out.print("enter empty contact name which is going to be filed:");
-             String contactName = scanner.nextLine();
-             if (emptyContacts.contains(contactName))
-             {
-                 String details = "";
-                 System.out.print("enter first name:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter last name:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter address:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter city:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter state:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter zip:");
-                 details += scanner.nextLine() + "\n";
-                 System.out.print("enter phone number:");
-                 details += scanner.nextLine() + "\n";
-                 writeFile(contactName, details);
-                 emptyContacts.remove(contactName);
-             }
-             else
-             {
-                 System.out.println(contactName + " is not empty contact or it is not created");
-                 System.out.println("use other option 1 to create new contact or option 5 to edit already created one");
-             }
-=======
->>>>>>> uc4
-    }
->>>>>>> main
-
-         }
-
-         void displayAllContacts()
-         {
-             boolean flag = false;
-             if (emptyContacts.size() != 0)
-             {
-                 System.out.println("the empty contacts are:");
-                 for (String contact : emptyContacts)
-                 {
-                     System.out.println(contact);
-                 }
-                 flag=true;
-             }
-             if (nonEmptyContacts.size() != 0)
-             {
-                 System.out.println("the non empty contacts are:");
-                 for (String contact : nonEmptyContacts)
-                 {
-                     System.out.println(contact);
-                 }
-                 flag=true;
-             }
-             if(!flag)
-             {
-                 System.out.println("no contacts are created yet");
-             }
-
-         }
-         void readFile(String fileName)throws Exception
-         {
-             FileReader fileReader = new FileReader(fileName);
-             int character;
-             while ((character = fileReader.read()) != -1)
-             {
-                 System.out.print((char) character);
-             }
-             fileReader.close();
-         }
-         void viewContactInfo()throws Exception
-         {
-             System.out.print("enter name of the contact to view:");
-             String contactName = scanner.nextLine();
-             if(emptyContacts.contains(contactName))
-             {
-                 System.out.println("please fill the contact "+ contactName+ " before viewing it");
-                 return;
-             }
-             else if(!nonEmptyContacts.contains(contactName))
-             {
-                 System.out.println("please create the contact "+contactName+" before viewing it");
-                 return;
-             }
-             System.out.println("the content of " + contactName + " is:");
-             readFile(contactName);
-         }
-         void editContactInfo()throws Exception
-         {
-             System.out.print("enter name of the contact to edit:");
-             String contactName = scanner.nextLine();
-             if(emptyContacts.contains(contactName))
-             {
-                 System.out.println("please fill the contact "+ contactName + " before editing it");
-                 return;
-             }
-             else if(!nonEmptyContacts.contains(contactName))
-             {
-                 System.out.println("please create the contact "+ contactName +" before editing it");
-                 return;
-             }
-             System.out.println("The content of " + contactName + " at present is:");
-             readFile(contactName);
-             System.out.println("Enter the 7 lines of  new content to write:");
-             StringBuilder newContentBuilder = new StringBuilder();
-             for (int i = 1; i <= 7; i++)
-             {
-                 newContentBuilder.append(scanner.nextLine()).append("\n");
-             }
-             String newContent = newContentBuilder.toString();
-             String option;
-             do
-             {
-                 System.out.println("enter... S for SAVE     SA for SAVE AS      C for CANCEL");
-                 option = scanner.nextLine().trim().toLowerCase();
-             } while (!(option.equals("s") || option.equals("sa")));
-             switch (option) {
-
-                 case "s" -> {
-                     writeFile(contactName, newContent);
-                     System.out.println(contactName + " is saved with new content");
-                 }
-
-                 case "sa" -> {
-                     String extension = ".csv";
-                     String newContactName = contactName.replaceFirst("[.][^.]+$", "") + extension;
-                     writeFile(newContactName, newContent);
-                     nonEmptyContacts.add(newContactName);
-                 }
-                 case "c" -> System.out.println("changes are not saved");
-                 default -> System.out.println("please select either S or C");
-             }
-
-         }
-     }
-
-<<<<<<< HEAD
-     class AddressBookLauncher
-     {
-=======
-        public static void main(String[] args) throws Exception {
-            AddressBook addressBook = new AddressBook();
+public class AddressBook {
+    static Scanner scanner = new Scanner(System.in);
+    static List<ContactsDetails>contactList;
+    HashMap<String, LinkedList<ContactsDetails>> contactBook = new HashMap<>();
+    public void showMenu() {
+        try {
             while (true) {
-                System.out.println("-----------------------------");
-                System.out.println("1.create a new contact");
-                System.out.println("2.fill contact details");
-<<<<<<< HEAD
-                System.out.println(".edit contact name");
-                System.out.println("4.exit");
-=======
-                System.out.println("3.edit contact name");
-                System.out.println("4.delete contact");
-                System.out.println("5.exit");
->>>>>>> uc4
-                System.out.print("enter option:");
-                int option = scanner.nextInt();
-                switch (option) {
-                    case 1 -> addressBook.createNewContact();
-                    case 2 -> addressBook.fillContactDetails();
-                    case 3 -> addressBook.editContactName();
-<<<<<<< HEAD
-                    case 4 -> {
-=======
-                    case 4 -> addressBook.deleteContact();
-                    case 5 -> {
->>>>>>> uc4
-                        System.out.println("exiting....");
-                        System.exit(0);
+                System.out.println("""
+                        1. Crate New address book\s
+                        2. Continue with existing address book\s
+                        3. Show All address books\s
+                        4. Search person by location in all address book\s
+                        5. Exit""");
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1 -> {
+                        System.out.println("Enter a name for Address book");
+                        String newBook = scanner.next();
+                        LinkedList<ContactsDetails> contactList = new LinkedList<>();
+                        if (contactBook.containsKey(newBook))
+                            System.out.println("Book already exists");
+                        else
+                            createContact(contactList, contactBook, newBook);
                     }
-                    default -> System.out.println("please enter the correct choice");
+                    case 2 -> {
+                        System.out.println(contactBook.keySet());
+                        System.out.println("Which address book do you want to access?");
+                        String existingBook = scanner.next();
+                        if (contactBook.containsKey(existingBook)) {
+                            contactList = contactBook.get(existingBook);
+                            createContact((LinkedList<ContactsDetails>) contactList, contactBook, existingBook);
+                        } else
+                            System.out.println("Book not found");
+                    }
+                    case 3 -> {
+                        int serialNo = 1;
+                        for (String book : contactBook.keySet()) {
+                            System.out.println(serialNo + ". " + book);
+                            serialNo++;
+                        }
+                        System.out.println("\n" + contactBook);
+                    }
+                    case 4 -> {
+                        System.out.println("Enter Name of City or State");
+                        String nameForLocation = scanner.next();
+                        searchByLocation(nameForLocation);
+                    }
+                    default -> System.exit(0);
                 }
->>>>>>> main
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public Hashtable<String, List<String>> searchByLocation(String nameForLocation) {
+        try {
+            Hashtable<String, List<String>> searchResult = new Hashtable<>();
+            List<String> contactList;
+            for (String keyOfBook : contactBook.keySet()) {
+                contactList = new ArrayList<>();
+                for (int index = 0; index < contactBook.get(keyOfBook).size(); index++) {
 
-         static final Scanner scanner = new Scanner(System.in);
+                    if (contactBook.get(keyOfBook).get(index).getCity().equals(nameForLocation))
+                        contactList.add(contactBook.get(keyOfBook).get(index).getFirst_name());
 
-         public static void main(String[] args) throws Exception
-         {
-             AddressBook addressBook = new AddressBook();
-             while (true)
-             {
-                 System.out.println("-----------------------------");
-                 System.out.println("1.create a new contact");
-                 System.out.println("2.fill contact details");
-                 System.out.println("3.display all contacts");
-                 System.out.println("4.view contact information");
-                 System.out.println("5.edit contact information");
-                 System.out.println("6.exit");
-                 System.out.print("enter option:");
-                 String option = scanner.nextLine().trim();
-                 switch (option) {
-                     case "1" -> addressBook.createNewContact();
-                     case "2" -> addressBook.fillContactDetails();
-                     case "3" -> addressBook.displayAllContacts();
-                     case "4" -> addressBook.viewContactInfo();
-                     case "5" -> addressBook.editContactInfo();
-                     case "6" -> {
-                         System.out.println("exiting....");
-                         System.exit(0);
-                     }
-                     default -> System.out.println("please enter the correct choice");
-                 }
+                    if (contactBook.get(keyOfBook).get(index).getState().equals(nameForLocation))
+                        contactList.add(contactBook.get(keyOfBook).get(index).getFirst_name());
+                }
+                if (!contactList.isEmpty())
+                    searchResult.put(keyOfBook, contactList);
+            }
+            return searchResult;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    private void createContact(LinkedList<ContactsDetails>contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
+        try {
+            boolean run = true;
+            while (run) {
+                System.out.println("""
+                        1. Add a New contact detail\s
+                        2. Show All contact\s
+                        3. Update a contact\s
+                        4. Delete a contact\s
+                        0. Exit\s
+                        """);
+                int choice = scanner.nextInt();
 
-             }
+                switch (choice) {
+                    case 1 -> {
+                        LinkedList<ContactsDetails> multiContactInBook = addContact(contactList);
+                        contactBook.put(addressBook, multiContactInBook);
+                    }
+                    case 2 -> displayContact(contactList);
+                    case 3 -> updateContact(contactList);
+                    case 4 -> deleteContact(contactList);
+                    default -> run = false;
+                }
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(e);
+        }
+    }
+    private void displayContact(LinkedList<ContactsDetails> contactList) {
+        try {
+            System.out.println("All contact -> " + contactList.size());
+            System.out.println(contactList);
+        } catch (Exception e) {
+            System.out.println("List is Empty");
+        }
+    }
+    private int searchName(String searchName, LinkedList<ContactsDetails> contactList) {
+        try {
+            for (int index = 0; index < contactList.size(); index++) {
+                if (contactList.get(index).getFirst_name().equals(searchName))
+                    return index;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
+    private LinkedList<ContactsDetails> addContact(LinkedList<ContactsDetails> contactList) {
+        try {
+            System.out.println("Enter the details \n" + "First Name :");
+            String firstName = scanner.next();
+            int existingName = searchName(firstName, contactList);
+            if (existingName == -1) {
+                ContactsDetails contactInfo = new ContactsDetails();
+                contactInfo.setFirstname(firstName);
 
-         }
-     }
+                System.out.println("Last Name :");
+                String lastName = scanner.next();
+                contactInfo.setLastname(lastName);
+
+                System.out.println("Phone Number :");
+                String phone = scanner.next();
+                contactInfo.setPhone(phone);
+
+                System.out.println("Email :");
+                String email = scanner.next();
+                contactInfo.setEmail(email);
+
+                System.out.println("City :");
+                String city = scanner.next();
+                contactInfo.setCity(city);
+
+                System.out.println("State :");
+                String state = scanner.next();
+                contactInfo.setState(state);
+
+                System.out.println("Zip Code :");
+                String zipcode = scanner.next();
+                contactInfo.setZipcode(zipcode);
+
+                contactList.add(contactInfo);
+            } else
+                System.out.println("Name already exists");
+        } catch (InputMismatchException e) {
+            System.out.println("Please provide correct information");
+        }
+        return contactList;
+    }
+    private void updateContact(LinkedList<ContactsDetails> contactList) {
+        try {
+            System.out.println("Enter the name of the person you want to update the contact of");
+            String searchName = scanner.next();
+            int editName = searchName(searchName, contactList);
+
+            if (editName == -1)
+                System.out.println("Name not found");
+            else {
+                ContactsDetails contactInfo = contactList.get(editName);
+                System.out.println(contactInfo);
+
+                System.out.println("""
+                        What do you want to update\s
+                        1. First Name\s
+                        2. Last Name\s
+                        3. Phone Number\s
+                        4. email\s
+                        5. City\s
+                        6. State\s
+                        7. Zip code\s""");
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1 -> {
+                        System.out.println("Enter new First Name");
+                        String newFirstName = scanner.next();
+                        contactInfo.setFirstname(newFirstName);
+                    }
+                    case 2 -> {
+                        System.out.println("Enter new Last Name");
+                        String newLastName = scanner.next();
+                        contactInfo.setLastname(newLastName);
+                    }
+                    case 3 -> {
+                        System.out.println("Enter new Phone Number");
+                        String newPhone = scanner.next();
+                        contactInfo.setPhone(newPhone);
+                    }
+                    case 4 -> {
+                        System.out.println("Enter new Email");
+                        String newEmail = scanner.next();
+                        contactInfo.setEmail(newEmail);
+                    }
+                    case 5 -> {
+                        System.out.println("Enter new City");
+                        String newCity = scanner.next();
+                        contactInfo.setCity(newCity);
+                    }
+                    case 6 -> {
+                        System.out.println("Enter new State");
+                        String newState = scanner.next();
+                        contactInfo.setState(newState);
+                    }
+                    case 7 -> {
+                        System.out.println("Enter new Zip code");
+                        String newZipcode = scanner.next();
+                        contactInfo.setZipcode(newZipcode);
+                    }
+                }
+                System.out.println("Updated Successfully");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    private void deleteContact(LinkedList<ContactsDetails> contactList) {
+        try {
+            System.out.println("Enter the person name you want to delete the contact details of");
+            String searchName = scanner.next();
+            int deleteName = searchName(searchName, contactList);
+
+            if (deleteName == -1)
+                System.out.println("Name not found");
+            else {
+                contactList.remove(deleteName);
+                System.out.println("Deleted Successfully");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
 
