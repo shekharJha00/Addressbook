@@ -13,7 +13,8 @@ public class AddressBook {
                         2. Continue with existing address book\s
                         3. Show All address books\s
                         4. Search person by location in all address book\s
-                        5. Exit""");
+                        5. Search Phone number by Name\s
+                        6. Exit""");
                 int choice = scanner.nextInt();
 
                 switch (choice) {
@@ -49,6 +50,11 @@ public class AddressBook {
                         String nameForLocation = scanner.next();
                         searchByLocation(nameForLocation);
                     }
+                    case 5 -> {
+                        System.out.println("Enter first Name");
+                        String nameForContact = scanner.next();
+                        getContactNo(nameForContact);
+                    }
                     default -> System.exit(0);
                 }
             }
@@ -80,7 +86,24 @@ public class AddressBook {
         }
         return null;
     }
-    private void createContact(LinkedList<ContactsDetails>contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
+    private void getContactNo(String nameOfContact) {
+        try {
+            for (String keyOfBook : contactBook.keySet()) {
+                for (int index = 0; index < contactBook.get(keyOfBook).size(); index++) {
+                    if (contactBook.get(keyOfBook).get(index).getFirst_name().equals(nameOfContact)) {
+
+                        String lastName = contactBook.get(keyOfBook).get(index).getLast_name();
+                        String phone = contactBook.get(keyOfBook).get(index).getPhone_number();
+
+                        System.out.println(keyOfBook + " : " + nameOfContact + " " + lastName + " --> " + phone);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    private void createContact(LinkedList<ContactsDetails> contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
         try {
             boolean run = true;
             while (run) {
@@ -250,6 +273,3 @@ public class AddressBook {
         }
     }
 }
-
-
-
