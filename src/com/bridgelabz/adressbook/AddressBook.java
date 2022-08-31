@@ -4,7 +4,6 @@ import java.util.*;
 
 public class AddressBook {
     static Scanner scanner = new Scanner(System.in);
-    static List<ContactsDetails>contactList;
     HashMap<String, LinkedList<ContactsDetails>> contactBook = new HashMap<>();
     public void showMenu() {
         try {
@@ -18,39 +17,46 @@ public class AddressBook {
                 int choice = scanner.nextInt();
 
                 switch (choice) {
-                    case 1 -> {
+                    case 1:
                         System.out.println("Enter a name for Address book");
                         String newBook = scanner.next();
                         LinkedList<ContactsDetails> contactList = new LinkedList<>();
+
                         if (contactBook.containsKey(newBook))
                             System.out.println("Book already exists");
                         else
                             createContact(contactList, contactBook, newBook);
-                    }
-                    case 2 -> {
+                        break;
+
+                    case 2:
                         System.out.println(contactBook.keySet());
                         System.out.println("Which address book do you want to access?");
                         String existingBook = scanner.next();
+
                         if (contactBook.containsKey(existingBook)) {
                             contactList = contactBook.get(existingBook);
-                            createContact((LinkedList<ContactsDetails>) contactList, contactBook, existingBook);
+                            createContact(contactList, contactBook, existingBook);
                         } else
                             System.out.println("Book not found");
-                    }
-                    case 3 -> {
+                        break;
+
+                    case 3:
                         int serialNo = 1;
                         for (String book : contactBook.keySet()) {
                             System.out.println(serialNo + ". " + book);
                             serialNo++;
                         }
                         System.out.println("\n" + contactBook);
-                    }
-                    case 4 -> {
+                        break;
+
+                    case 4:
                         System.out.println("Enter Name of City or State");
                         String nameForLocation = scanner.next();
                         searchByLocation(nameForLocation);
-                    }
-                    default -> System.exit(0);
+                        break;
+
+                    default:
+                        System.exit(0);
                 }
             }
         } catch (Exception e) {
@@ -80,7 +86,7 @@ public class AddressBook {
         }
         return null;
     }
-    private void createContact(LinkedList<ContactsDetails>contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
+    private void createContact(LinkedList<ContactsDetails> contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
         try {
             boolean run = true;
             while (run) {
@@ -250,5 +256,6 @@ public class AddressBook {
         }
     }
 }
+
 
 
