@@ -4,7 +4,6 @@ import java.util.*;
 
 public class AddressBook {
     static Scanner scanner = new Scanner(System.in);
-    static List<ContactsDetails>contactList;
     HashMap<String, LinkedList<ContactsDetails>> contactBook = new HashMap<>();
     public void showMenu() {
         try {
@@ -32,8 +31,8 @@ public class AddressBook {
                         System.out.println("Which address book do you want to access?");
                         String existingBook = scanner.next();
                         if (contactBook.containsKey(existingBook)) {
-                            contactList = contactBook.get(existingBook);
-                            createContact((LinkedList<ContactsDetails>) contactList, contactBook, existingBook);
+                            LinkedList<ContactsDetails> contactList = contactBook.get(existingBook);
+                            createContact(contactList, contactBook, existingBook);
                         } else
                             System.out.println("Book not found");
                     }
@@ -74,6 +73,7 @@ public class AddressBook {
                 if (!contactList.isEmpty())
                     searchResult.put(keyOfBook, contactList);
             }
+            System.out.println(searchResult);
             return searchResult;
         } catch (Exception e) {
             System.out.println(e);
@@ -250,5 +250,6 @@ public class AddressBook {
         }
     }
 }
+
 
 

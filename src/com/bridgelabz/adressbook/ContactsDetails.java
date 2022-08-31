@@ -1,6 +1,5 @@
 package com.bridgelabz.adressbook;
 
-<<<<<<< HEAD
 
 public class ContactsDetails {
     private String first_name;
@@ -28,7 +27,7 @@ public class ContactsDetails {
 
     public void setEmail(String email) {
         this.email = email;
-=======
+
 public class ContactsDetails {
 
     private String firstname, lastname, address, city, state, email;
@@ -57,16 +56,13 @@ public class ContactsDetails {
 
     public void setAddress(String address) {
         this.address = address;
->>>>>>> 93a3db978bd4c98576fa63773ad0a72cc00c9a9a
+
     }
 
     public String getCity() {
         return city;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 93a3db978bd4c98576fa63773ad0a72cc00c9a9a
     public void setCity(String city) {
         this.city = city;
     }
@@ -74,18 +70,15 @@ public class ContactsDetails {
     public String getState() {
         return state;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 93a3db978bd4c98576fa63773ad0a72cc00c9a9a
     public void setState(String state) {
         this.state = state;
     }
 
-<<<<<<< HEAD
+
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
-=======
+
     public String getEmail() {
         return email;
     }
@@ -108,21 +101,20 @@ public class ContactsDetails {
 
     public void setPhonenumber(long phonenumber) {
         this.phonenumber = phonenumber;
->>>>>>> 93a3db978bd4c98576fa63773ad0a72cc00c9a9a
+
     }
 
     @Override
     public String toString() {
-<<<<<<< HEAD
+
         return "First Name : '" + first_name + "', Last Name : '" + last_name + "', Phone Number : '" + phone_number +
                 "', email ID : '" + email + "', City : '" + city + "', State : '" + state + "', Zipcode : '" + zipcode + "'\n";
     }
 }
-=======
+
         return "ContactsDetails [firstname=" + firstname + ", lastname=" + lastname + ", address=" + address + ", city="
                 + city + ", state=" + state + ", email=" + email + ", zip=" + zip + ", phonenumber=" + phonenumber
                 + "]";
     }
 
 }
->>>>>>> 93a3db978bd4c98576fa63773ad0a72cc00c9a9a
