@@ -1,9 +1,6 @@
 package com.bridgelabz.adressbook;
 
 
-
-
-
 public class ContactsDetails {
     private String first_name;
     private String last_name;
