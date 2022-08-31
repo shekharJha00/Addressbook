@@ -56,7 +56,7 @@ public class AddressBook {
             System.out.println(e);
         }
     }
-    public Hashtable<String, List<String>>searchByLocation(String nameForLocation) {
+    public Hashtable<String, List<String>> searchByLocation(String nameForLocation) {
         try {
             Hashtable<String, List<String>> searchResult = new Hashtable<>();
             List<String> contactList;
@@ -73,6 +73,7 @@ public class AddressBook {
                 if (!contactList.isEmpty())
                     searchResult.put(keyOfBook, contactList);
             }
+            System.out.println(searchResult);
             return searchResult;
         } catch (Exception e) {
             System.out.println(e);
