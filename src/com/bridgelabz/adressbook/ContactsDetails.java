@@ -16,10 +16,16 @@ public class ContactsDetails {
         this.first_name = first_name;
     }
 
+    public String getLast_name() {
+        return last_name;
+    }
     public void setLastname(String last_name) {
         this.last_name = last_name;
     }
 
+    public String getPhone_number() {
+        return phone_number;
+    }
     public void setPhone(String phone_number) {
         this.phone_number = phone_number;
     }
@@ -50,5 +56,4 @@ public class ContactsDetails {
     public String toString() {
         return "First Name : '" + first_name + "', Last Name : '" + last_name + "', Phone Number : '" + phone_number +
                 "', email ID : '" + email + "', City : '" + city + "', State : '" + state + "', Zipcode : '" + zipcode + "'\n";
-    }
-}
+    }}
