@@ -1,10 +1,11 @@
 package com.bridgelabz.adressbook;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
     static Scanner scanner = new Scanner(System.in);
-    HashMap<String, LinkedList<ContactsDetails>> contactBook = new HashMap<>();
+    Map<String, List<ContactsDetails>> contactBook = new HashMap<>();
     public void showMenu() {
         try {
             while (true) {
@@ -18,44 +19,52 @@ public class AddressBook {
                 int choice = scanner.nextInt();
 
                 switch (choice) {
-                    case 1 -> {
+                    case 1:
                         System.out.println("Enter a name for Address book");
                         String newBook = scanner.next();
-                        LinkedList<ContactsDetails> contactList = new LinkedList<>();
+                        List<ContactsDetails> contactList = new LinkedList<>();
+
                         if (contactBook.containsKey(newBook))
                             System.out.println("Book already exists");
                         else
                             createContact(contactList, contactBook, newBook);
-                    }
-                    case 2 -> {
+                        break;
+
+                    case 2:
                         System.out.println(contactBook.keySet());
                         System.out.println("Which address book do you want to access?");
                         String existingBook = scanner.next();
+
                         if (contactBook.containsKey(existingBook)) {
-                            LinkedList<ContactsDetails> contactList = contactBook.get(existingBook);
+                            contactList = contactBook.get(existingBook);
                             createContact(contactList, contactBook, existingBook);
                         } else
                             System.out.println("Book not found");
-                    }
-                    case 3 -> {
+                        break;
+
+                    case 3:
                         int serialNo = 1;
                         for (String book : contactBook.keySet()) {
                             System.out.println(serialNo + ". " + book);
                             serialNo++;
                         }
                         System.out.println("\n" + contactBook);
-                    }
-                    case 4 -> {
+                        break;
+
+                    case 4:
                         System.out.println("Enter Name of City or State");
                         String nameForLocation = scanner.next();
                         searchByLocation(nameForLocation);
-                    }
-                    case 5 -> {
+                        break;
+
+                    case 5:
                         System.out.println("Enter first Name");
                         String nameForContact = scanner.next();
                         getContactNo(nameForContact);
-                    }
-                    default -> System.exit(0);
+                        break;
+
+                    default:
+                        System.exit(0);
                 }
             }
         } catch (Exception e) {
@@ -103,7 +112,7 @@ public class AddressBook {
             System.out.println(e);
         }
     }
-    private void createContact(LinkedList<ContactsDetails> contactList, HashMap<String, LinkedList<ContactsDetails>> contactBook, String addressBook) {
+    private void createContact(List<ContactsDetails> contactList, Map<String, List<ContactsDetails>> contactBook, String addressBook) {
         try {
             boolean run = true;
             while (run) {
@@ -118,7 +127,7 @@ public class AddressBook {
 
                 switch (choice) {
                     case 1 -> {
-                        LinkedList<ContactsDetails> multiContactInBook = addContact(contactList);
+                        List<ContactsDetails> multiContactInBook = addContact(contactList);
                         contactBook.put(addressBook, multiContactInBook);
                     }
                     case 2 -> displayContact(contactList);
@@ -131,7 +140,7 @@ public class AddressBook {
             System.out.println(e);
         }
     }
-    private void displayContact(LinkedList<ContactsDetails> contactList) {
+    private void displayContact(List<ContactsDetails> contactList) {
         try {
             System.out.println("All contact -> " + contactList.size());
             System.out.println(contactList);
@@ -139,7 +148,7 @@ public class AddressBook {
             System.out.println("List is Empty");
         }
     }
-    private int searchName(String searchName, LinkedList<ContactsDetails> contactList) {
+    private int searchName(String searchName, List<ContactsDetails> contactList) {
         try {
             for (int index = 0; index < contactList.size(); index++) {
                 if (contactList.get(index).getFirst_name().equals(searchName))
@@ -150,40 +159,33 @@ public class AddressBook {
         }
         return -1;
     }
-    private LinkedList<ContactsDetails> addContact(LinkedList<ContactsDetails> contactList) {
+    private List<ContactsDetails> addContact(List<ContactsDetails> contactList) {
         try {
             System.out.println("Enter the details \n" + "First Name :");
             String firstName = scanner.next();
             int existingName = searchName(firstName, contactList);
             if (existingName == -1) {
-                ContactsDetails contactInfo = new ContactsDetails();
-                contactInfo.setFirstname(firstName);
-
                 System.out.println("Last Name :");
                 String lastName = scanner.next();
-                contactInfo.setLastname(lastName);
 
                 System.out.println("Phone Number :");
                 String phone = scanner.next();
-                contactInfo.setPhone(phone);
 
                 System.out.println("Email :");
                 String email = scanner.next();
-                contactInfo.setEmail(email);
 
                 System.out.println("City :");
                 String city = scanner.next();
-                contactInfo.setCity(city);
 
                 System.out.println("State :");
                 String state = scanner.next();
-                contactInfo.setState(state);
 
                 System.out.println("Zip Code :");
                 String zipcode = scanner.next();
-                contactInfo.setZipcode(zipcode);
 
+                ContactsDetails contactInfo = new ContactsDetails(firstName, lastName, phone, email, city, state, zipcode);
                 contactList.add(contactInfo);
+                contactList = contactList.stream().sorted(Comparator.comparing(ContactsDetails::getFirst_name)).collect(Collectors.toList());
             } else
                 System.out.println("Name already exists");
         } catch (InputMismatchException e) {
@@ -191,7 +193,7 @@ public class AddressBook {
         }
         return contactList;
     }
-    private void updateContact(LinkedList<ContactsDetails> contactList) {
+    private void updateContact(List<ContactsDetails> contactList) {
         try {
             System.out.println("Enter the name of the person you want to update the contact of");
             String searchName = scanner.next();
@@ -256,12 +258,11 @@ public class AddressBook {
             System.out.println(e);
         }
     }
-    private void deleteContact(LinkedList<ContactsDetails> contactList) {
+    private void deleteContact(List<ContactsDetails> contactList) {
         try {
             System.out.println("Enter the person name you want to delete the contact details of");
             String searchName = scanner.next();
             int deleteName = searchName(searchName, contactList);
-
             if (deleteName == -1)
                 System.out.println("Name not found");
             else {

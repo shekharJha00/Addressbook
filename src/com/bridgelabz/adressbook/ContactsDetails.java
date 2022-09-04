@@ -9,6 +9,18 @@ public class ContactsDetails {
     private String state;
     private String zipcode;
 
+    public ContactsDetails(String firstName, String lastName, String phone, String email, String city, String state, String zipcode) {
+
+            this.first_name = firstName;
+            this.last_name = lastName;
+            this.phone_number = phone;
+            this.email = email;
+            this.city = city;
+            this.state = state;
+            this.zipcode = zipcode;
+        }
+
+
     public String getFirst_name() {
         return first_name;
     }
