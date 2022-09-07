@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 public class AddressBook {
 
             static Scanner scanner = new Scanner(System.in);
-            Map<String, List<ContactsDetails>> contactBook = new HashMap<>();
+            static Map<String, List<ContactsDetails>> contactBook = new HashMap<>();
+           IoService ioService=new IoService();
             public void showMenu () {
                 try {
                     while (true) {
@@ -30,6 +31,7 @@ public class AddressBook {
                                     System.out.println("Book already exists");
                                 else
                                     createContact(contactList, contactBook, newBook);
+                                ioService.writeContactDetails(contactBook);
                                 break;
 
                             case 2:
@@ -167,8 +169,9 @@ public class AddressBook {
                             case 4 -> deleteContact(contactList);
                             default -> run = false;
                         }
-                    }
-                } catch (InputMismatchException e) {
+                    }ioService.writeContactDetails(contactBook);
+                }
+                catch (InputMismatchException e) {
                     System.out.println(e);
                 }
             }
