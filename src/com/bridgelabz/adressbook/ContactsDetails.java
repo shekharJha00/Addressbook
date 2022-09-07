@@ -1,8 +1,7 @@
 package com.bridgelabz.adressbook;
 
-
 public class ContactsDetails {
-     private String first_name;
+    private String first_name;
     private String last_name;
     private String phone_number;
     private String email;
@@ -20,6 +19,8 @@ public class ContactsDetails {
             this.state = state;
             this.zipcode = zipcode;
         }
+
+
 
 
     public String getFirst_name() {
@@ -41,6 +42,10 @@ public class ContactsDetails {
     }
     public void setPhone(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
@@ -74,4 +79,3 @@ public class ContactsDetails {
         return "First Name : '" + first_name + "', Last Name : '" + last_name + "', Phone Number : '" + phone_number +
                 "', email ID : '" + email + "', City : '" + city + "', State : '" + state + "', Zipcode : '" + zipcode + "'\n";
     }}
-
